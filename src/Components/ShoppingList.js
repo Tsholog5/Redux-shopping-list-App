@@ -23,72 +23,88 @@ const ShoppingList = () => {
   };
 
   return (
-    <ul>
-      {shoppingList.map((item) => (
-        <li key={item.id} style={{ textDecoration: item.bought ? 'line-through' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          {editMode === item.id ? (
-            <>
-              <input
-                type="text"
-                value={newItemName}
-                onChange={(e) => setNewItemName(e.target.value)}
-              />
-              <button
-                onClick={() => handleUpdate(item.id)}
-                style={{
-                  backgroundColor: 'green',
-                  color: 'white',
-                  border: 'none',
-                  padding: '5px 10px',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  marginLeft: '10px',
-                }}>
-                Update
-              </button>
-            </>
-          ) : (
-            <>
-              <span>{item.name}</span>
-              <div>
-                <button
-                  onClick={() => dispatch(toggleBought(item.id))}
-                  style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    color={item.bought ? 'green' : 'gray'}
-                    size="lg"
+    <table className="shopping-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Size</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {shoppingList.map((item) => (
+          <tr key={item.id} className={item.bought ? 'bought' : ''}>
+            {editMode === item.id ? (
+              <>
+                <td colSpan={4}>
+                  <input
+                    type="text"
+                    value={newItemName}
+                    onChange={(e) => setNewItemName(e.target.value)}
+                    style={{ width: '100%' }}
                   />
-                </button>
-                <button
-                  onClick={() => handleEdit(item)}
-                  style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    color="blue"
-                    size="lg"
-                  />
-                </button>
-              </div>
-            </>
-          )}
-          <button
-            onClick={() => dispatch(removeItem(item.id))}
-            style={{
-              marginLeft: '10px',
-              backgroundColor: 'red',
-              color: 'white',
-              border: 'none',
-              padding: '5px 10px',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              textDecoration: 'none',
-            }}>
-            Remove
-          </button>
-        </li>
-      ))}
-    </ul>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleUpdate(item.id)}
+                    style={{
+                      backgroundColor: 'green',
+                      color: 'white',
+                      border: 'none',
+                      padding: '5px 10px',
+                      borderRadius: '5px',
+                      cursor: 'pointer',
+                    }}>
+                    Update
+                  </button>
+                </td>
+              </>
+            ) : (
+              <>
+                <td>{item.name}</td>
+                <td>{item.category}</td>
+                <td>{item.quantity}</td>
+                <td>{item.size}</td>
+                <td className="item-actions">
+                  <button
+                    onClick={() => dispatch(toggleBought(item.id))}
+                    style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      color={item.bought ? 'green' : 'gray'}
+                      size="lg"
+                    />
+                  </button>
+                  <button
+                    onClick={() => handleEdit(item)}
+                    style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      color="blue"
+                      size="lg"
+                    />
+                  </button>
+                  <button
+                    onClick={() => dispatch(removeItem(item.id))}
+                    style={{
+                      backgroundColor: 'red',
+                      color: 'white',
+                      border: 'none',
+                      padding: '5px 10px',
+                      borderRadius: '5px',
+                      cursor: 'pointer',
+                    }}>
+                    Remove
+                  </button>
+                </td>
+              </>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

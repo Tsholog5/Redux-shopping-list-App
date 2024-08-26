@@ -1,4 +1,3 @@
-// src/ReduxStore/ShoppingSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 export const shoppingSlice = createSlice({
@@ -6,7 +5,15 @@ export const shoppingSlice = createSlice({
   initialState: [],
   reducers: {
     addItem: (state, action) => {
-      state.push({ id: Date.now(), name: action.payload, bought: false });
+      // Add item with all properties: name, category, quantity, size
+      state.push({ 
+        id: Date.now(), 
+        name: action.payload.itemName, 
+        category: action.payload.category,
+        quantity: action.payload.quantity,
+        size: action.payload.size,
+        bought: false 
+      });
     },
     removeItem: (state, action) => {
       return state.filter((item) => item.id !== action.payload);

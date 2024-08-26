@@ -1,5 +1,3 @@
-// src/App.js
-import React from 'react';
 import ShoppingList from './Components/ShoppingList';
 import AddItem from './Components/AddItemForm';
 import CSS from './App.css';

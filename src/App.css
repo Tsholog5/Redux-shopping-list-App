@@ -1,94 +1,123 @@
-/* src/App.css */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-}
-
-.App {
   text-align: center;
-  max-width: 600px;
-  margin: 50px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  color: #333;
+  text-align: center;
+  margin-top: 20px;
 }
 
-form {
-  margin-bottom: 20px;
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
-input[type="text"] {
+.add-item-form input,
+.add-item-form select {
   padding: 10px;
-  width: 70%;
-  border: 1px solid #ddd;
   border-radius: 5px;
-  margin-right: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
 }
 
-button {
-  padding: 10px 15px;
+.add-item-form .add-button {
+  padding: 10px;
   border: none;
   border-radius: 5px;
   background-color: #28a745;
   color: white;
+  font-size: 16px;
   cursor: pointer;
 }
 
-button:hover {
+.add-item-form .add-button:hover {
   background-color: #218838;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.search-input {
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  text-align: left;
 }
 
-li {
-  padding: 10px;
-  font-size: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.shopping-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-table th,
+.shopping-table td {
+  padding: 15px;
+  text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-li:last-child {
-  border-bottom: none;
+.shopping-table th {
+  background-color: #f8f8f8;
 }
 
-li button {
-  margin-left: 10px;
+.shopping-table tr.bought {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.item-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.item-actions button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.item-actions .remove-button {
+  background-color: red;
+  color: white;
   padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-li button:first-child {
-  background-color: #ffc107;
-  color: white;
-  padding: 0;
-  margin-right: 10px;
-}
-
-li button:first-child:hover {
-  background-color: #e0a800;
-}
-
-li button:last-child {
-  background-color: #dc3545;
-  color: white;
-}
-
-li button:last-child:hover {
+.item-actions .remove-button:hover {
   background-color: #c82333;
 }
 
-li.bought {
-  text-decoration: line-through;
-  color: #6c757d;
+.item-actions .edit-button,
+.item-actions .toggle-button {
+  font-size: 18px;
+}
+
+.item-actions .edit-button {
+  color: blue;
+}
+
+.item-actions .toggle-button {
+  color: gray;
+}
+
+.item-actions .toggle-button.bought {
+  color: green;
 }
