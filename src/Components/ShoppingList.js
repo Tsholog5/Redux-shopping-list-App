@@ -9,15 +9,17 @@ const ShoppingList = () => {
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(null);
   const [newItemName, setNewItemName] = useState('');
+  const [newNote, setNewNote] = useState('');
 
   const handleEdit = (item) => {
     setEditMode(item.id);
     setNewItemName(item.name);
+    setNewNote(item.note);
   };
 
   const handleUpdate = (itemId) => {
     if (newItemName.trim()) {
-      dispatch(editItem({ id: itemId, name: newItemName }));
+      dispatch(editItem({ id: itemId, name: newItemName, note: newNote }));
       setEditMode(null);
     }
   };
@@ -30,6 +32,7 @@ const ShoppingList = () => {
           <th>Category</th>
           <th>Quantity</th>
           <th>Size</th>
+          <th>Note</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -43,6 +46,13 @@ const ShoppingList = () => {
                     type="text"
                     value={newItemName}
                     onChange={(e) => setNewItemName(e.target.value)}
+                    style={{ width: '100%' }}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    value={newNote}
+                    onChange={(e) => setNewNote(e.target.value)}
                     style={{ width: '100%' }}
                   />
                 </td>
@@ -67,6 +77,7 @@ const ShoppingList = () => {
                 <td>{item.category}</td>
                 <td>{item.quantity}</td>
                 <td>{item.size}</td>
+                <td>{item.note}</td>
                 <td className="item-actions">
                   <button
                     onClick={() => dispatch(toggleBought(item.id))}

@@ -7,6 +7,7 @@ const AddItem = () => {
   const [category, setCategory] = useState('Fruit and Vegetable');
   const [quantity, setQuantity] = useState('1');
   const [size, setSize] = useState('Small');
+  const [note, setNote] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const shoppingList = useSelector((state) => state.shoppingList);
   const dispatch = useDispatch();
@@ -14,11 +15,12 @@ const AddItem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (itemName.trim()) {
-      dispatch(addItem({ itemName, category, quantity, size }));
+      dispatch(addItem({ itemName, category, quantity, size, note }));
       setItemName('');
       setCategory('Fruit and Vegetable');
       setQuantity('1');
       setSize('Small');
+      setNote('');
     }
   };
 
@@ -74,6 +76,13 @@ const AddItem = () => {
           <option value="Large">Large</option>
           <option value="Extra Large">Extra Large</option>
         </select>
+
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Add a note..."
+          className="note-textarea"
+        />
         
         <button type="submit" className="add-button">Add</button>
       </form>

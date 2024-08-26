@@ -1,6 +1,7 @@
+import React from 'react';
 import ShoppingList from './Components/ShoppingList';
-import AddItem from './Components/AddItemForm';
-import CSS from './App.css';
+import AddItem from './Components/AddItemForm'; 
+import './App.css'; 
 
 function App() {
   return (

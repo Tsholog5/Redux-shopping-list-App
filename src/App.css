@@ -121,3 +121,12 @@ h1 {
 .item-actions .toggle-button.bought {
   color: green;
 }
+.add-item-form .note-textarea,
+.shopping-table textarea {
+  width: 100%;
+  height: 50px; 
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

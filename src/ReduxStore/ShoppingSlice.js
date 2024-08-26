@@ -5,13 +5,14 @@ export const shoppingSlice = createSlice({
   initialState: [],
   reducers: {
     addItem: (state, action) => {
-      // Add item with all properties: name, category, quantity, size
+      
       state.push({ 
         id: Date.now(), 
         name: action.payload.itemName, 
         category: action.payload.category,
         quantity: action.payload.quantity,
         size: action.payload.size,
+        note: action.payload.note || '', 
         bought: false 
       });
     },
@@ -28,6 +29,7 @@ export const shoppingSlice = createSlice({
       const item = state.find((item) => item.id === action.payload.id);
       if (item) {
         item.name = action.payload.name;
+        item.note = action.payload.note || ''; 
       }
     },
   },
