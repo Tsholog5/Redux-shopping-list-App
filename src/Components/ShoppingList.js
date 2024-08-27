@@ -4,6 +4,8 @@ import { removeItem, toggleBought, editItem } from '../ReduxStore/ShoppingSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
 
+
+
 const ShoppingList = () => {
   const shoppingList = useSelector((state) => state.shoppingList);
   const dispatch = useDispatch();

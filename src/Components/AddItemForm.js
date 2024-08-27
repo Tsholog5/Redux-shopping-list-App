@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../ReduxStore/ShoppingSlice';
+import ShoppingList from './ShoppingList'; 
 
 const AddItem = () => {
   const [itemName, setItemName] = useState('');
@@ -75,6 +76,8 @@ const AddItem = () => {
           <option value="Medium">Medium</option>
           <option value="Large">Large</option>
           <option value="Extra Large">Extra Large</option>
+          <option value="N/A">N/A</option>
+          
         </select>
 
         <textarea
@@ -100,6 +103,8 @@ const AddItem = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
+
+      <ShoppingList /> 
     </div>
   );
 };
