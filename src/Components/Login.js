@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import logo from '../logo.jpg'; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -30,6 +31,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+        <img src={logo} alt="Shopping App Logo" className="logo" />
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Login</h1>
         <div>

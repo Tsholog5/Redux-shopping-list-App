@@ -1,3 +1,4 @@
+
 .login-container {
     display: flex;
     flex-direction: column;
@@ -5,25 +6,29 @@
     justify-content: center;
     height: 100vh;
     padding: 20px;
+   
   }
   
   .logo-container {
     text-align: center;
-    margin-bottom: 20px; /* Space between logo and form */
+    margin-bottom: 20px; 
   }
   
   .logo {
-    width: 80px; /* Adjust the width as needed */
+    width: 20px; 
     height: auto;
   }
   
   .login-form {
-    width: 100%;
-    max-width: 400px; /* Adjust as needed */
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #EDDCD9;
+  height: auto;
+  width: auto;
+  border-radius: 40px;
+  
   }
   
   .login-form h1 {

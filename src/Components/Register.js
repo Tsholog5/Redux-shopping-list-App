@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import logo from '../logo.jpg'; 
  
 
 const Register = () => {
@@ -37,6 +38,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="logo-container">
+      <img src={logo} alt="Shopping App Logo" className="logo" />
         
       </div>
       <form className="register-form" onSubmit={handleRegister}>

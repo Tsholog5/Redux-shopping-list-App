@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../ReduxStore/ShoppingSlice';
-import ShoppingList from './ShoppingList'; 
+import ShoppingList from './ShoppingList';
 
 const AddItem = () => {
   const [itemName, setItemName] = useState('');
@@ -10,7 +10,6 @@ const AddItem = () => {
   const [size, setSize] = useState('Small');
   const [note, setNote] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const shoppingList = useSelector((state) => state.shoppingList);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -29,12 +28,9 @@ const AddItem = () => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  const filteredItems = shoppingList.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm)
-  );
-
   return (
     <div>
+      <h1>SHOPPING LIST</h1>
       <form onSubmit={handleSubmit} className="add-item-form">
         <input
           type="text"
@@ -98,13 +94,7 @@ const AddItem = () => {
         className="search-input"
       />
       
-      <ul>
-        {filteredItems.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-
-      <ShoppingList /> 
+      <ShoppingList searchTerm={searchTerm} />
     </div>
   );
 };
