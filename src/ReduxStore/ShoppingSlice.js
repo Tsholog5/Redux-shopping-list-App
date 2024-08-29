@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+export const selectItems = (state) => state.shoppingList;
+
 
 export const shoppingSlice = createSlice({
   name: 'shoppingList',

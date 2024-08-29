@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../ReduxStore/ShoppingSlice';
+import { useNavigate } from 'react-router-dom';
+import { addItem, selectItems } from '../ReduxStore/ShoppingSlice';
 import ShoppingList from './ShoppingList';
 
 const AddItem = () => {
@@ -10,7 +11,18 @@ const AddItem = () => {
   const [size, setSize] = useState('Small');
   const [note, setNote] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showProfileForm, setShowProfileForm] = useState(false); 
+  const [profile, setProfile] = useState({
+    name: '',
+    surname: '',
+    cellNumber: '',
+    email: '',
+    phoneNumbers: '',
+  });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const items = useSelector(selectItems);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,9 +40,97 @@ const AddItem = () => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('loggedIn'); 
+    navigate('/'); 
+  };
+
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
+  const handleProfileSubmit = (e) => {
+    e.preventDefault();
+   
+    console.log('Profile updated:', profile);
+    setShowProfileForm(false); 
+  };
+
   return (
     <div>
-      <h1>SHOPPING LIST</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>SHOPPING LIST</h1>
+
+        <div>
+          <button 
+            onClick={() => setShowProfileForm(!showProfileForm)}
+            style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}
+          >
+            Profile
+          </button>
+
+          <button 
+            onClick={handleLogout} 
+            style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px', cursor: 'pointer' }}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      {showProfileForm && (
+        <form onSubmit={handleProfileSubmit} className="profile-form" style={{ marginTop: '20px', padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+          <h2>Profile</h2>
+          <input
+            type="text"
+            name="name"
+            value={profile.name}
+            onChange={handleProfileChange}
+            placeholder="Name"
+            style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
+          />
+          <input
+            type="text"
+            name="surname"
+            value={profile.surname}
+            onChange={handleProfileChange}
+            placeholder="Surname"
+            style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
+          />
+          <input
+            type="text"
+            name="cellNumber"
+            value={profile.cellNumber}
+            onChange={handleProfileChange}
+            placeholder="Cell Number"
+            style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
+          />
+          <input
+            type="email"
+            name="email"
+            value={profile.email}
+            onChange={handleProfileChange}
+            placeholder="Email"
+            style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
+          />
+          <input
+            type="text"
+            name="phoneNumbers"
+            value={profile.phoneNumbers}
+            onChange={handleProfileChange}
+            placeholder="Phone Numbers"
+            style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
+          />
+          <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+            Save Profile
+          </button>
+        </form>
+      )}
+
       <form onSubmit={handleSubmit} className="add-item-form">
         <input
           type="text"
@@ -73,7 +173,6 @@ const AddItem = () => {
           <option value="Large">Large</option>
           <option value="Extra Large">Extra Large</option>
           <option value="N/A">N/A</option>
-          
         </select>
 
         <textarea
@@ -86,15 +185,19 @@ const AddItem = () => {
         <button type="submit" className="add-button">Add</button>
       </form>
 
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-        placeholder="Search item..."
-        className="search-input"
-      />
-      
-      <ShoppingList searchTerm={searchTerm} />
+      {items.length > 0 && (
+        <>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="Search item..."
+            className="search-input"
+          />
+          
+          <ShoppingList searchTerm={searchTerm} />
+        </>
+      )}
     </div>
   );
 };

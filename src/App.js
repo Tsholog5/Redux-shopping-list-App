@@ -7,12 +7,14 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import PrivateRoute from './Components/PrivateRoute';
 
+
 const App = () => {
   return (
     <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/AddItemForm" element={<PrivateRoute element={<AddItemForm/>} />} />
+        
     </Routes>
   );
 };
