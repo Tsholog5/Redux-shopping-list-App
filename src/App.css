@@ -1,14 +1,17 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #EDDCD9;
+  background-color: rgb(211, 236, 211);
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
 h1 {
+  display: flex;
   text-align: center;
   margin-top: 20px;
+  justify-self: center;
+  margin: 0 auto;
 }
 
 .add-item-form {

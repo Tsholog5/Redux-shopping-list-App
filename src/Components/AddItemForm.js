@@ -11,17 +11,19 @@ const AddItem = () => {
   const [size, setSize] = useState('Small');
   const [note, setNote] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [showProfileForm, setShowProfileForm] = useState(false); 
+  const [showProfileForm, setShowProfileForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
   const [profile, setProfile] = useState({
     name: '',
     surname: '',
     cellNumber: '',
     email: '',
-    phoneNumbers: '',
+    Age: '', // Updated to correct key from 'phoneNumbers' to 'Age'
   });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const items = useSelector(selectItems);
 
   const handleSubmit = (e) => {
@@ -41,8 +43,8 @@ const AddItem = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('loggedIn'); 
-    navigate('/'); 
+    localStorage.removeItem('loggedIn');
+    navigate('/');
   };
 
   const handleProfileChange = (e) => {
@@ -55,9 +57,14 @@ const AddItem = () => {
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-   
     console.log('Profile updated:', profile);
-    setShowProfileForm(false); 
+    setShowProfileForm(false);
+    setIsEditing(false); // Reset edit mode after saving
+  };
+
+  const handleEditProfile = () => {
+    setIsEditing(true);
+    setShowProfileForm(true); // Show the profile form in edit mode
   };
 
   return (
@@ -66,15 +73,15 @@ const AddItem = () => {
         <h1>SHOPPING LIST</h1>
 
         <div>
-          <button 
+          <button
             onClick={() => setShowProfileForm(!showProfileForm)}
             style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}
           >
             Profile
           </button>
 
-          <button 
-            onClick={handleLogout} 
+          <button
+            onClick={handleLogout}
             style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px', cursor: 'pointer' }}
           >
             Logout
@@ -83,7 +90,7 @@ const AddItem = () => {
       </div>
 
       {showProfileForm && (
-        <form onSubmit={handleProfileSubmit} className="profile-form" style={{ marginTop: '20px', padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+        <form onSubmit={handleProfileSubmit} className="profile-form" style={{ marginTop: '20px', padding: '20px', gap: '3px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
           <h2>Profile</h2>
           <input
             type="text"
@@ -119,14 +126,21 @@ const AddItem = () => {
           />
           <input
             type="text"
-            name="phoneNumbers"
-            value={profile.phoneNumbers}
+            name="Age"
+            value={profile.Age}
             onChange={handleProfileChange}
-            placeholder="Phone Numbers"
+            placeholder="Age"
             style={{ padding: '10px', margin: '5px 0', borderRadius: '5px', border: '1px solid #ddd' }}
           />
-          <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+          <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>
             Save Profile
+          </button>
+          <button
+            type="button"
+            onClick={handleEditProfile}
+            style={{ padding: '10px', backgroundColor: '#ffc107', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+          >
+            Edit Profile
           </button>
         </form>
       )}
@@ -138,7 +152,7 @@ const AddItem = () => {
           onChange={(e) => setItemName(e.target.value)}
           placeholder="Enter item..."
         />
-        
+
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -151,7 +165,7 @@ const AddItem = () => {
           <option value="Detergents">Detergents</option>
           <option value="Other">Other</option>
         </select>
-        
+
         <select
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
@@ -162,7 +176,7 @@ const AddItem = () => {
           ))}
           <option value="More">More</option>
         </select>
-        
+
         <select
           value={size}
           onChange={(e) => setSize(e.target.value)}
@@ -181,7 +195,7 @@ const AddItem = () => {
           placeholder="Add a note..."
           className="note-textarea"
         />
-        
+
         <button type="submit" className="add-button">Add</button>
       </form>
 
@@ -194,7 +208,7 @@ const AddItem = () => {
             placeholder="Search item..."
             className="search-input"
           />
-          
+
           <ShoppingList searchTerm={searchTerm} />
         </>
       )}
